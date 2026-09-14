@@ -118,27 +118,6 @@ a { color: inherit; }
   width: 34px;
 }
 
-.share-button {
-  background: rgba(6, 19, 22, .35);
-  border: 1px solid rgba(245, 236, 220, .45);
-  border-radius: 999px;
-  color: var(--bone);
-  cursor: pointer;
-  font: 700 .72rem/1 "Echo Sans", Arial, sans-serif;
-  letter-spacing: .12em;
-  min-height: 42px;
-  padding: 0 18px;
-  text-transform: uppercase;
-  transition: background .2s ease, border-color .2s ease;
-}
-
-.share-button:hover,
-.share-button:focus-visible {
-  background: rgba(229, 185, 104, .14);
-  border-color: var(--gold-bright);
-  outline: none;
-}
-
 .hero {
   display: grid;
   min-height: 100svh;
@@ -475,6 +454,38 @@ blockquote {
   font-size: 1rem;
 }
 
+.city-summary {
+  margin-bottom: 22px;
+}
+
+.city-details {
+  border-top: 1px solid var(--line);
+  display: grid;
+  gap: 14px;
+  margin: 0 0 24px;
+  padding-top: 20px;
+}
+
+.city-details div {
+  display: grid;
+  gap: 4px;
+}
+
+.city-details dt {
+  color: var(--gold-bright);
+  font-size: .66rem;
+  font-weight: 700;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+}
+
+.city-details dd {
+  color: var(--bone);
+  font-size: .88rem;
+  line-height: 1.5;
+  margin: 0;
+}
+
 .city-tag {
   color: var(--gold-bright);
   font-size: .72rem;
@@ -564,8 +575,6 @@ footer span {
 @media (max-width: 760px) {
   .topbar { height: 68px; }
   .brand > span:last-child { display: none; }
-  .share-button { min-height: 40px; }
-
   .hero { min-height: 850px; }
   .hero-image { background-position: 57% 48%; }
   .hero-overlay {
@@ -631,7 +640,6 @@ footer span {
       <span class="brand-mark">DE</span>
       <span>Diaspora Echo</span>
     </a>
-    <button class="share-button" id="shareButton" type="button">Share countdown</button>
   </header>
 
   <main id="top">
@@ -698,19 +706,34 @@ footer span {
         <article class="city-card city-card-featured">
           <span class="city-index">01 · Kenya</span>
           <h3>Mombasa</h3>
-          <p>Indian Ocean living, Swahili culture, and a life shaped by the coast.</p>
+          <p class="city-summary">Indian Ocean living, deep Swahili culture, and a slower daily rhythm with strong ties to the wider East African region.</p>
+          <dl class="city-details">
+            <div><dt>Best for</dt><dd>Coastal lifestyle, heritage, warm weather, and building opportunities in Kenya.</dd></div>
+            <div><dt>Everyday feel</dt><dd>Relaxed, social, tropical, and culturally connected.</dd></div>
+            <div><dt>Consider</dt><dd>Heat and humidity, infrastructure reliability, and access to specialized healthcare.</dd></div>
+          </dl>
           <span class="city-tag">Ocean · Heritage</span>
         </article>
         <article class="city-card">
           <span class="city-index">02 · South Africa</span>
           <h3>Johannesburg</h3>
-          <p>Energy, opportunity, nightlife, and unmatched access across Southern Africa.</p>
+          <p class="city-summary">A major African business center with powerful Black culture, nonstop energy, and excellent connections throughout Southern Africa.</p>
+          <dl class="city-details">
+            <div><dt>Best for</dt><dd>Career and business opportunities, nightlife, arts, restaurants, and regional travel.</dd></div>
+            <div><dt>Everyday feel</dt><dd>Fast, ambitious, creative, diverse, and always moving.</dd></div>
+            <div><dt>Consider</dt><dd>Security planning, traffic, neighborhood selection, and higher big-city stress.</dd></div>
+          </dl>
           <span class="city-tag">Hub · Momentum</span>
         </article>
         <article class="city-card">
           <span class="city-index">03 · Rwanda</span>
           <h3>Kigali</h3>
-          <p>Order, calm, green hills, and a central base for exploring East Africa.</p>
+          <p class="city-summary">A clean, organized capital surrounded by green hills, with a calm pace and a growing reputation for innovation.</p>
+          <dl class="city-details">
+            <div><dt>Best for</dt><dd>Peaceful routines, organization, regional access, and a focused quality of life.</dd></div>
+            <div><dt>Everyday feel</dt><dd>Calm, green, orderly, welcoming, and manageable.</dd></div>
+            <div><dt>Consider</dt><dd>A smaller social scene, imported-goods costs, and fewer large-city options.</dd></div>
+          </dl>
           <span class="city-tag">Calm · Connection</span>
         </article>
       </div>
@@ -790,27 +813,6 @@ footer span {
     tick();
     timer = setInterval(tick, 1000);
 
-    const shareButton = document.getElementById('shareButton');
-    shareButton.addEventListener('click', async () => {
-      const shareData = {
-        title: 'Countdown to Africa — The Return',
-        text: 'Not another trip. A move. April 19, 2029.',
-        url: window.location.href
-      };
-
-      try {
-        if (navigator.share) {
-          await navigator.share(shareData);
-        } else {
-          await navigator.clipboard.writeText(window.location.href);
-          const original = shareButton.textContent;
-          shareButton.textContent = 'Link copied';
-          setTimeout(() => { shareButton.textContent = original; }, 1800);
-        }
-      } catch (error) {
-        if (error.name !== 'AbortError') console.error(error);
-      }
-    });
   </script>
 </body>
 </html>
